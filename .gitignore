@@ -1,0 +1,11 @@
+.env
+.venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+data/cache/
+data/indexes/
+data/runs/
+data/corpus/*
+data/testsets/*
+!data/**/.gitkeep

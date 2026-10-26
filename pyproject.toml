@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "retrieval-eval-lab"
+version = "0.1.0"
+description = "Compare chunking, embeddings, hybrid search, and rerankers on your own data"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy", "pandas", "scipy", "pyyaml", "python-dotenv", "tqdm",
+  "rank-bm25", "anthropic", "matplotlib",
+]
+
+[project.optional-dependencies]
+hf = ["sentence-transformers"]
+openai = ["openai"]
+cohere = ["cohere"]
+voyage = ["voyageai"]
+faiss = ["faiss-cpu"]
+chroma = ["chromadb"]
+dashboard = ["streamlit"]
+pdf = ["pypdf"]
+report = ["markdown"]
+dev = ["pytest"]
+all = ["sentence-transformers", "openai", "cohere", "voyageai", "faiss-cpu",
+       "chromadb", "streamlit", "pypdf", "markdown", "pytest"]
+
+[project.scripts]
+lab = "lab.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["lab*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
