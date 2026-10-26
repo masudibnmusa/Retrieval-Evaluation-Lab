@@ -1,0 +1,21 @@
+name: hybrid_vs_dense
+corpus: data/corpus
+testset: data/testsets/dev.jsonl
+primary_metric: recall@5
+eval_k: [1, 5, 10]
+
+grid:
+  chunker:
+    - {type: recursive, size: 512, overlap: 64}
+  embedder:
+    - {type: hf, model: BAAI/bge-small-en-v1.5}
+  retriever:
+    - {type: bm25}                                   # baseline (configs[0])
+    - {type: dense}
+    - {type: hybrid, fusion: rrf}
+    - {type: hybrid, fusion: weighted, alpha: 0.5}
+    - {type: hybrid, fusion: weighted, alpha: 0.7}
+    - {type: dense, transform: hyde}
+    - {type: hybrid, fusion: rrf, transform: multi_query}
+  reranker:
+    - {type: none}

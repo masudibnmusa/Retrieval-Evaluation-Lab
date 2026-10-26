@@ -1,0 +1,21 @@
+name: embedding_shootout
+corpus: data/corpus
+testset: data/testsets/dev.jsonl
+primary_metric: ndcg@10
+eval_k: [1, 5, 10]
+
+grid:
+  chunker:
+    - {type: recursive, size: 512, overlap: 64}
+  embedder:
+    - {type: hf, model: BAAI/bge-small-en-v1.5}
+    - {type: hf, model: intfloat/e5-base-v2}
+    - {type: hf, model: sentence-transformers/all-MiniLM-L6-v2}
+    - {type: openai, model: text-embedding-3-small}
+    - {type: openai, model: text-embedding-3-large}
+    - {type: voyage, model: voyage-3.5}
+    - {type: cohere, model: embed-v4.0}
+  retriever:
+    - {type: dense}
+  reranker:
+    - {type: none}
